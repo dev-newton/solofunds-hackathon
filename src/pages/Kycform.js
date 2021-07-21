@@ -17,9 +17,7 @@ const Kycform = () => {
         onSubmit={handleSubmit(submitHandler)}
         name="formy"
       >
-        <div className="form-row Input-Label ">
-          <h2>PART 1: Personal Information</h2>
-        </div>
+        <h2 className="text-center mt-4">PART 1: Personal Information</h2>
         <br />
         <br />
         <div className="form-row Input-Label">Customers Name</div>

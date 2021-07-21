@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="footer bg-darkk py-5">
       <div className="container grid grid-3">
         <div>
-          <h1>Solo KYC</h1>
+          <h1>Solo Funds</h1>
           <p>Copyright &copy; 2021</p>
         </div>
         <nav>

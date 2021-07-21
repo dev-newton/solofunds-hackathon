@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <div className="navbarr">
       <div className="containerr flex">
-        <h1 className="logo">Solo KYC</h1>
+        <h1 className="logo">Solo Funds</h1>
         <nav>
           <ul>
             <li>

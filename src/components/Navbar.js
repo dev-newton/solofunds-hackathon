@@ -5,7 +5,9 @@ const Navbar = () => {
   return (
     <div className="navbarr">
       <div className="containerr flex">
-        <h1 className="logo">Solo Funds</h1>
+        <Link to="/">
+          <h1 className="logo">Solo Funds</h1>
+        </Link>
         <nav>
           <ul>
             <li>

@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
-const Kycform = () => {
+const Kycform = (props) => {
   const [loading, setLoading] = useState(false);
 
   const { register, handleSubmit, errors } = useForm();
 
   const submitHandler = async (result) => {
     console.log(result);
+    alert("Success, thanks for signing up!");
+    props.history.push("/");
   };
 
   return (
@@ -17,10 +19,14 @@ const Kycform = () => {
         onSubmit={handleSubmit(submitHandler)}
         name="formy"
       >
-        <h2 className="text-center mt-4">PART 1: Personal Information</h2>
-        <br />
-        <br />
-        <div className="form-row Input-Label">Customers Name</div>
+        <h2 className="text-center mt-4">Registration Form</h2>
+        <p className="text-center">Let's get to know you better</p>
+        <p className="text-center alert alert-primary">
+          Please note that for security reasons, the <b>Title</b>,{" "}
+          <b>Firstname</b>, and <b>Lastname</b> fields have been prefilled with
+          existing data gotten from the ID Verification exercise you just
+          completed, and cannot be edited.
+        </p>
         <div className="form-row">
           <div className="form-group col-md-3  ">
             <label
@@ -34,9 +40,11 @@ const Kycform = () => {
               className={!errors.title ? "form-control" : "form-control error"}
               name="title"
               ref={register()}
-              // onChange={onSelectTitleHandler}
+              disabled
             >
-              <option></option>
+              <option selected value="Mr.">
+                Mr.
+              </option>
               <option value="Mr.">Mr.</option>
               <option value="Mrs.">Mrs.</option>
               <option value="Miss.">Miss.</option>
@@ -54,7 +62,7 @@ const Kycform = () => {
               htmlFor="surname"
               className={!errors.surname ? "title" : " errorText"}
             >
-              Surname
+              Last Name
             </label>
             <input
               type="text"
@@ -63,6 +71,8 @@ const Kycform = () => {
               }
               id="surname"
               name="surname"
+              value="IMONJIRIE"
+              disabled
               ref={register({ required: true })}
               // value={surname}
               // onChange={surnameHandler}
@@ -85,6 +95,8 @@ const Kycform = () => {
               }
               id="firstname"
               name="firstname"
+              value="NEWTON"
+              disabled
               ref={register({ required: true })}
             />
             {errors.firstname && (
@@ -98,7 +110,7 @@ const Kycform = () => {
               htmlFor="email"
               className={!errors.email ? "title" : " errorText"}
             >
-              Personal Email Address
+              Email Address
             </label>
             <input
               type="text"
@@ -119,7 +131,7 @@ const Kycform = () => {
               htmlFor="phone"
               className={!errors.phone ? "title" : " errorText"}
             >
-              Personal Phone Number
+              Phone Number
             </label>
             <input
               type="text"
@@ -154,199 +166,37 @@ const Kycform = () => {
           <div className="form-group col-md-6">
             <label
               htmlFor="profession"
-              className={!errors.profession ? "title" : " errorText"}
+              className={!errors.uname ? "title" : " errorText"}
             >
-              Profession{" "}
+              Username{" "}
             </label>
             <input
               type="text"
-              className={
-                !errors.profession ? "form-control" : "form-control error"
-              }
-              id="profession"
-              name="profession"
+              className={!errors.uname ? "form-control" : "form-control error"}
+              id="uname"
+              name="uname"
               ref={register({ required: true })}
             />
-            {errors.profession && (
-              <p className="errorText">Profession is required</p>
-            )}
+            {errors.uname && <p className="errorText">Username is required</p>}
           </div>
           <div className="form-group col-md-6">
             <label
-              htmlFor="source_of_funds"
-              className={!errors.source_of_funds ? "title" : " errorText"}
+              htmlFor="profession"
+              className={!errors.pass ? "title" : " errorText"}
             >
-              Source of Funds
+              Password{" "}
             </label>
             <input
-              type="text"
-              className={
-                !errors.source_of_funds ? "form-control" : "form-control error"
-              }
-              id="source_of_funds"
-              name="source_of_funds"
+              type="password"
+              className={!errors.pass ? "form-control" : "form-control error"}
+              id="pass"
+              name="pass"
               ref={register({ required: true })}
             />
-            {errors.source_of_funds && (
-              <p className="errorText">Source of funds is required</p>
-            )}
+            {errors.pass && <p className="errorText">Password is required</p>}
           </div>
         </div>
-        {/* BEGIN IDENTIFICATION */}
         <br />
-        <br />
-        <br />
-        {/* <div className="row">
-              <div className="col-md-9">
-                <div className="form-row Input-Label">
-                  <h2>PART 2: Identification</h2>
-                </div>
-                <br />
-                <br />
-                <div className="form-row Input-Label">
-                  Mode of Identification
-                </div>
-                <div style={{ marginTop: 16, marginLeft: 10 }}>
-                  <div className="row align-items-center">
-                    <Switch
-                      uncheckedIcon={false}
-                      onChange={handleCheck1}
-                      checked={checked1}
-                    />
-                    <span className="title2">International Passport</span>
-
-                    {checked1 && (
-                      <IdentificationDetails
-                        errorId1={errorId1}
-                        errorId2={errorId2}
-                        errorId3={errorId3}
-                        checked1_p={checked1}
-                      />
-                    )}
-                  </div>
-                </div>
-                <div style={{ marginTop: 28, marginLeft: 10 }}>
-                  <div className="row align-items-center">
-                    <Switch
-                      uncheckedIcon={false}
-                      onChange={handleCheck2}
-                      checked={checked2}
-                    />
-                    <span className="title2">National ID Card</span>
-
-                    {checked2 && (
-                      <IdentificationDetails
-                        errorId1={errorId1}
-                        errorId2={errorId2}
-                        errorId3={errorId3}
-                        checked2_p={checked2}
-                      />
-                    )}
-                  </div>
-                </div>
-                <div style={{ marginTop: 28, marginLeft: 10 }}>
-                  <div className="row align-items-center">
-                    <Switch
-                      uncheckedIcon={false}
-                      onChange={handleCheck3}
-                      checked={checked3}
-                    />
-                    <span className="title2">Driver's License</span>
-
-                    {checked3 && (
-                      <IdentificationDetails
-                        errorId1={errorId1}
-                        errorId2={errorId2}
-                        errorId3={errorId3}
-                        checked3_p={checked3}
-                      />
-                    )}
-                  </div>
-                </div>
-                <div style={{ marginTop: 28, marginLeft: 10 }}>
-                  <div className="row align-items-center">
-                    <Switch
-                      uncheckedIcon={false}
-                      onChange={handleCheck4}
-                      checked={checked4}
-                    />
-                    <span className="title2">Voter's Card</span>
-
-                    {checked4 && (
-                      <IdentificationDetails
-                        errorId1={errorId1}
-                        errorId2={errorId2}
-                        errorId3={errorId3}
-                        checked4_p={checked4}
-                      />
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              <div className="col-md-3 ">
-                <br />
-                <br />
-                <label
-                  htmlFor="inputCity"
-                  style={{ color: passportUrlError && "red" }}
-                >
-                  Upload Selected ID
-                </label>
-                {uploadSuccess && (
-                  <div className="alert alert-success" role="alert">
-                    Upload successful!
-                  </div>
-                )}
-                {uploadSuccess === false && (
-                  <div className="alert alert-danger" role="alert">
-                    Upload failed!
-                  </div>
-                )}
-                <ImageUploader
-                  key={ImageUploaderKey}
-                  withIcon={true}
-                  accept="*"
-                  singleImage={true}
-                  buttonText={
-                    !loadingUpload ? (
-                      "Select ID"
-                    ) : (
-                      <span
-                        style={{ width: 20, height: 20 }}
-                        className="spinner-border spinner-border-sm"
-                        role="status"
-                        aria-hidden="true"
-                      ></span>
-                    )
-                  }
-                  withPreview={true}
-                  label="Max file size: 5MB"
-                  errorStyle={{ textAlign: "center" }}
-                  fileTypeError=" is not a supported file extension. Try .jpeg, .pdf and .png"
-                  onChange={onDrop}
-                  imgExtension={[".jpg", ".jpeg", ".png", ".gif", ".pdf"]}
-                  maxFileSize={5242880}
-                  fileSizeError="Maximum file size cannot exceed 5 MB!"
-                  buttonStyles={{
-                    backgroundColor: "transparent",
-                    color: !passportUrlError ? "#359be0" : "red",
-                  }}
-                  fileContainerStyle={{
-                    border: !passportUrlError
-                      ? "2px dotted #e6e8ed"
-                      : "2px dotted red",
-                  }}
-                  labelStyles={{ color: "#b2b2b2" }}
-                />
-                {passportUrlError && (
-                  <p style={{ color: "red", textAlign: "center" }}>
-                    Please upload an ID !
-                  </p>
-                )}
-              </div>
-            </div> */}
-        <br /> <br />
         <div className="form-check">
           <input
             type="checkbox"
@@ -355,19 +205,11 @@ const Kycform = () => {
             id="exampleCheck1"
           />
           <label className="form-check-label title" htmlFor="exampleCheck1">
-            By clicking the Submit button I hereby entirely and irrevocably
-            agrees to indemnify Canary Point Group, its agents and respective
-            affiliates as well as its officers, directors and employees,
-            collateral managers, servicers and counsel against any loss,
-            litigation or any other expense arising from the statement of untrue
-            or incomplete information herein, or due to the undersigned's
-            failure to disclose any illegality in relation to the source of
-            funds as requested by this document. I hereby confirmed that the
-            information provided by me is accurate.
+            By clicking the Submit button, I hereby agree that I have read the
+            terms and conditions.
           </label>
         </div>
         {/* END IDENTIFICATION */}
-        <br /> <br />
         <div className="form-group d-flex justify-content-center">
           <label className="title-business">
             {/* Are you a Business ?{" "} */}
@@ -390,22 +232,6 @@ const Kycform = () => {
               "SUBMIT"
             )}
           </button>
-          {/* 
-              <button
-                onClick={() => setYes(true)}
-                className="btn btn-lg btn-primary action-block-btn-yes"
-              >
-                {loading1 ? (
-                  <span
-                    style={{ width: 25, height: 25 }}
-                    className="spinner-border spinner-border-sm"
-                    role="status"
-                    aria-hidden="true"
-                  ></span>
-                ) : (
-                  "Yes"
-                )}
-              </button> */}
         </div>
       </form>
     </div>
